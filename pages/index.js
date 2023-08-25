@@ -42,7 +42,7 @@ const ProfilePage = () => {
 						<Text>Pick one below to get started.</Text>
 						<ul>
 							{presentations.map(p => (
-								<li><Link href={`/presentations/${p.name}`}>{p.title}</Link></li>
+								<li><Link href={`/${p.name}`}>{p.title}</Link></li>
 							))}
 						</ul>
 					</Flex>

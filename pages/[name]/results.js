@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { CacheClient, CredentialProvider, Configurations, CacheSortedSetFetch } from '@gomomento/sdk-web';
 import { Flex, Card, Text, Loader, Image, Heading, ThemeProvider, Divider, Table, TableCell, TableHead, TableRow, TableBody, Button } from '@aws-amplify/ui-react';
-import { getAuthToken } from '../../../utils/Auth';
+import { getAuthToken } from '../../utils/Auth';
 import { FiArrowLeft } from 'react-icons/fi';
 import { toast } from 'react-toastify';
 

@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
-import { TopicClient, CacheClient, CredentialProvider, Configurations, CacheSetFetch, CollectionTtl } from '@gomomento/sdk-web';
+import { TopicClient, CacheClient, CredentialProvider, Configurations } from '@gomomento/sdk-web';
 import { Flex, Card, Text, Loader, Image, Heading, Link, View, Button } from '@aws-amplify/ui-react';
-import { getAuthToken } from '../../../utils/Auth';
+import { getAuthToken } from '../../utils/Auth';
 import { FiArrowRight } from 'react-icons/fi';
-import Comment from '../../../components/Comment';
+import Comment from '../../components/Comment';
 import QRCode from 'react-qr-code';
-import styles from '../../../styles/animations.module.css';
-import commentStyles from '../../../styles/comment.module.css';
+import styles from '../../styles/animations.module.css';
+import commentStyles from '../../styles/comment.module.css';
 
 const PresentPage = () => {
   const router = useRouter();
@@ -22,7 +22,7 @@ const PresentPage = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const [cacheClient, setCacheClient] = useState(null);
   const [reactionSubscription, setReactionSubscription] = useState(null);
-  const [iframeHeight, setIframeHeight] = useState('839px');
+  const [iframeHeight, setIframeHeight] = useState('75vh');
   const iframeContainerRef = useRef(null);
   const cacheClientRef = useRef(cacheClient);
 
@@ -78,12 +78,6 @@ const PresentPage = () => {
       }
     }
 
-    if (slidesId) {
-      subscribeForReactions();
-    }
-  }, [slidesId]);
-
-  useEffect(() => {
     function handleResize() {
       if (iframeContainerRef.current) {
         const width = iframeContainerRef.current.clientWidth;
@@ -92,14 +86,17 @@ const PresentPage = () => {
       }
     }
 
-    handleResize();
+    if (slidesId) {
+      subscribeForReactions();
+      handleResize();
 
-    window.addEventListener('resize', handleResize);
+      window.addEventListener('resize', handleResize);
 
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+      return () => {
+        window.removeEventListener('resize', handleResize);
+      };
+    }
+  }, [slidesId]);
 
   const updateCacheClient = (client) => {
     cacheClientRef.current = client;
@@ -145,7 +142,7 @@ const PresentPage = () => {
 
     setTimeout(() => {
       setComments(prevComments => prevComments.filter(comment => comment.id !== newComment.id));
-    }, 6000); 
+    }, 6000);
   }
 
   if (!isLoaded) {
@@ -208,7 +205,7 @@ const PresentPage = () => {
                   width={"3.5em"}
                 />
               ))}
-              {comments.map(comment => (                
+              {comments.map(comment => (
                 <Comment
                   key={comment.id}
                   className={commentStyles.commentBox}

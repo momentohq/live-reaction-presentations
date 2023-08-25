@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { Flex, Card, Heading, Button, Image, TextField } from '@aws-amplify/ui-react';
 import Head from 'next/head';
 import { TopicClient, CredentialProvider, Configurations } from '@gomomento/sdk-web';
-import { getAuthToken } from '../../../utils/Auth';
-import { getUserDetail } from '../../../utils/Device';
+import { getAuthToken } from '../../utils/Auth';
+import { getUserDetail } from '../../utils/Device';
 
 const RacerPage = () => {
   const router = useRouter();
