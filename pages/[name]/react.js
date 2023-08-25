@@ -26,7 +26,7 @@ const RacerPage = () => {
     };
 
     const user = getUserDetail();
-    if (!user) {
+    if (!user?.username) {
       router.push(`/profile?redirect=${router.asPath}`);
     } else {
       setReacter(user);
