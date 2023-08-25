@@ -5,6 +5,11 @@ import Head from 'next/head';
 import { TopicClient, CredentialProvider, Configurations } from '@gomomento/sdk-web';
 import { getAuthToken } from '../../utils/Auth';
 import { getUserDetail } from '../../utils/Device';
+import { toast } from 'react-toastify';
+import { badWordList } from '../../lib/bad-words';
+import Filter from 'bad-words';
+const filter = new Filter();
+filter.addWords(...badWordList);
 
 const RacerPage = () => {
   const router = useRouter();
@@ -49,6 +54,12 @@ const RacerPage = () => {
         type: 'comment',
         username: reacter.username,
         message: comment
+      }
+
+      if(filter.isProfane(comment)){
+        toast.error('Your comment cannot contain profanity.', { position: 'top-right', autoClose: 5000, draggable: false, hideProgressBar: true, theme: 'colored' });
+        setComment('');
+        return;
       }
 
       await topicClient.publish(process.env.NEXT_PUBLIC_CACHE_NAME, name, JSON.stringify(data));
