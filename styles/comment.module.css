@@ -1,0 +1,28 @@
+.commentBox {
+  position: fixed;
+  bottom: 0;
+  background-color: #f1f1f1;
+  padding: 10px 20px;
+  border-radius: 5px;
+  opacity: 0;
+  animation: moveUpPauseFadeOut 6s forwards;
+}
+
+@keyframes moveUpPauseFadeOut {
+  0% {
+    bottom: 0;
+    opacity: 0;
+  }
+  30% {
+    bottom: 20vh;   
+    opacity: 1;
+  }
+  70% {
+    bottom: 20vh;   
+    opacity: 1;
+  }  
+  100% {
+    bottom: 0;
+    opacity: 0;
+  }
+}

@@ -1,0 +1,17 @@
+.animatedReaction {
+  position: fixed;
+  bottom: 0;
+  opacity: 1;
+  animation: moveUpFadeOut 3.5s forwards;
+}
+
+@keyframes moveUpFadeOut {
+  0% {
+    bottom: 0;
+    opacity: 1;
+  }
+  100% {
+    bottom: 100vh;
+    opacity: 0;
+  }
+}
