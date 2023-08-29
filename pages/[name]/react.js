@@ -80,19 +80,19 @@ const RacerPage = () => {
           <Flex direction="column" gap="1em" alignItems="center">
             <Heading level={4} textAlign="center">Press on a reaction below to send it to the presenter!</Heading>
             <Flex direction="row" gap="1em" wrap="wrap" alignItems="center" justifyContent="center">
-              <Button variation="link" name="mo-profile" onClick={(e) => sendReaction(e.target.name)} >
-                <Flex name="mo-profile" direction="column" alignItems="center" justifyContent="center" gap=".3em">
-                  <Image name="mo-profile" src="/mo-profile.png" width="45%" borderRadius="50%" boxShadow="large" />
+              <Button variation="link" name="Thumbs Up" onClick={(e) => sendReaction(e.target.name)} >
+                <Flex name="Thumbs Up" direction="column" alignItems="center" justifyContent="center" gap=".3em">
+                  <Image name="Thumbs Up" src="/Thumbs Up.png" width="45%" borderRadius="50%" boxShadow="large" />
                 </Flex>
               </Button>
-              <Button variation="link" name="faux-mo-profile" onClick={(e) => sendReaction(e.target.name)} >
-                <Flex name="faux-mo-profile" direction="column" alignItems="center" justifyContent="center" gap=".3em">
-                  <Image name="faux-mo-profile" src="/faux-mo-profile.png" width="45%" borderRadius="50%" boxShadow="large" />
+              <Button variation="link" name="Mindblown" onClick={(e) => sendReaction(e.target.name)} >
+                <Flex name="Mindblown" direction="column" alignItems="center" justifyContent="center" gap=".3em">
+                  <Image name="Mindblown" src="/Mindblown.png" width="45%" borderRadius="50%" boxShadow="large" />
                 </Flex>
               </Button>
-              <Button variation="link" name="ko-profile" onClick={(e) => sendReaction(e.target.name)} >
-                <Flex name="ko-profile" direction="column" alignItems="center" justifyContent="center" gap=".3em">
-                  <Image name="ko-profile" src="/ko-profile.png" width="45%" borderRadius="50%" boxShadow="large" />
+              <Button variation="link" name="Love It!" onClick={(e) => sendReaction(e.target.name)} >
+                <Flex name="Love It!" direction="column" alignItems="center" justifyContent="center" gap=".3em">
+                  <Image name="Love It!" src="/Love It!.png" width="45%" borderRadius="50%" boxShadow="large" />
                 </Flex>
               </Button>
             </Flex>

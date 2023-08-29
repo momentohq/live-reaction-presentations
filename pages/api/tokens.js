@@ -15,12 +15,12 @@ export default async function handler(req, res) {
         permissions: [
           {
             role: TopicRole.PublishSubscribe,
-            cache: 'conference',
+            cache: process.env.NEXT_PUBLIC_CACHE_NAME,
             topic: AllTopics
           },
           {
             role: CacheRole.ReadWrite,
-            cache: 'conference'
+            cache: process.env.NEXT_PUBLIC_CACHE_NAME
           }
         ]
       };
@@ -32,7 +32,7 @@ export default async function handler(req, res) {
           exp: token.expiresAt.epoch()
         };
 
-        await cacheClient.set('conference', `${userId}-token`, JSON.stringify(vendedToken));
+        await cacheClient.set(process.env.NEXT_PUBLIC_CACHE_NAME, `${userId}-token`, JSON.stringify(vendedToken));
         res.status(200).json(vendedToken);
       } else {
         throw new Error('Unable to create auth token');

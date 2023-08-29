@@ -96,6 +96,10 @@ const PresentPage = () => {
         window.removeEventListener('resize', handleResize);
       };
     }
+
+    return () => {
+      reactionSubscription?.unsubscribe();
+    }
   }, [slidesId]);
 
   const updateCacheClient = (client) => {
@@ -202,7 +206,7 @@ const PresentPage = () => {
                   className={styles.animatedReaction}
                   src={`/${image.reaction}.png`}
                   style={{ left: `${image.xPos}px` }}
-                  width={"3.5em"}
+                  width={"4em"}
                 />
               ))}
               {comments.map(comment => (
