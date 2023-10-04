@@ -23,6 +23,7 @@ const PresentPage = () => {
   const [cacheClient, setCacheClient] = useState(null);
   const [reactionSubscription, setReactionSubscription] = useState(null);
   const [iframeHeight, setIframeHeight] = useState('75vh');
+  const [shouldResize, setShouldResize] = useState(true);
   const iframeContainerRef = useRef(null);
   const cacheClientRef = useRef(cacheClient);
 
@@ -51,6 +52,13 @@ const PresentPage = () => {
       loadSlides();
     }
   }, [name]);
+
+  useEffect(() => {
+    if (router.query.height) {
+      setShouldResize(false);
+      setIframeHeight(`${router.query.height}px`);
+    }
+  }, [router.query.height]);
 
   useEffect(() => {
     async function subscribeForReactions() {
@@ -90,11 +98,13 @@ const PresentPage = () => {
       subscribeForReactions();
       handleResize();
 
-      window.addEventListener('resize', handleResize);
+      if (shouldResize) {
+        window.addEventListener('resize', handleResize);
 
-      return () => {
-        window.removeEventListener('resize', handleResize);
-      };
+        return () => {
+          window.removeEventListener('resize', handleResize);
+        };
+      }
     }
 
     return () => {
@@ -174,7 +184,7 @@ const PresentPage = () => {
         ) :
           (
             <Flex direction="column" gap="1em" width="100%" alignItems="center">
-              <View width="99%" margin="auto" >
+              <View width="99%" margin="auto" height={iframeHeight}>
                 <View ref={iframeContainerRef} position="relative" overflow="hidden" width="100%" paddingTop="58.333%">
                   <iframe
                     src={`https://docs.google.com/presentation/d/e/${slidesId}/embed?start=false&loop=false&delayms=60000`}

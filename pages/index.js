@@ -19,11 +19,11 @@ const ProfilePage = () => {
 					setPresentations([{ title: 'No presentations found', id: 'none' }])
 				} else {
 					setPresentations(data);
-					
+
 				}
 			} catch (err) {
 				console.error(err);
-			} 
+			}
 		}
 
 		loadPresentations();
@@ -40,7 +40,7 @@ const ProfilePage = () => {
 						<Heading level={4}>Hey there! <MdWavingHand /></Heading>
 						<Text>Want to give or look at some presentations? Well you're in the right place!</Text>
 						<Text>Pick one below to get started.</Text>
-						<ul>
+						<ul style={{marginTop: '0em'}}>
 							{presentations.map(p => (
 								<li><Link href={`/${p.name}`}>{p.title}</Link></li>
 							))}

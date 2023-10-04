@@ -10,8 +10,8 @@
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^5.0.5",
-    "@gomomento/sdk": "^1.28.0",
-    "@gomomento/sdk-web": "^1.29.0",
+    "@gomomento/sdk": "^1.40.2",
+    "@gomomento/sdk-web": "^1.40.2",
     "aws-amplify": "^5.3.4",
     "bad-words": "^3.0.4",
     "next": "^12.2.1",
