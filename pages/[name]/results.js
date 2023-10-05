@@ -146,7 +146,7 @@ const ResultsPage = () => {
                 <Divider orientation="vertical" size="large" />
                 <Flex direction="column" basis="48%" position="relative">
                   <Card variation="elevated" backgroundColor="#C4F135">
-                    <Heading level={4} textAlign="center">Biggest Reacters</Heading>
+                    <Heading level={4} textAlign="center">Who Sent the Most?</Heading>
                   </Card>
                   <Table title="Biggest Reacters" variation="striped" highlightOnHover boxShadow="medium" backgroundColor="#AEE2B3" >
                     <TableHead>

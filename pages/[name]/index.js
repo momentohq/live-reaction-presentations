@@ -21,11 +21,14 @@ const PresentPage = () => {
   const [isSuccess, setIsSuccess] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
   const [cacheClient, setCacheClient] = useState(null);
+  const [topicClient, setTopicClient] = useState(null);
   const [reactionSubscription, setReactionSubscription] = useState(null);
   const [iframeHeight, setIframeHeight] = useState('75vh');
   const [shouldResize, setShouldResize] = useState(true);
+  const [isListening, setIsListening] = useState(true);
   const iframeContainerRef = useRef(null);
   const cacheClientRef = useRef(cacheClient);
+  const topicClientRef = useRef(topicClient);
 
   useEffect(() => {
     async function loadSlides() {
@@ -71,13 +74,15 @@ const PresentPage = () => {
 
       updateCacheClient(client);
 
-      const topicClient = new TopicClient({
+      const topics = new TopicClient({
         configuration: Configurations.Browser.latest(),
         credentialProvider: CredentialProvider.fromString({ authToken })
       });
 
+      updateTopicClient(topics);
+
       if (!reactionSubscription) {
-        const subscription = await topicClient.subscribe(process.env.NEXT_PUBLIC_CACHE_NAME, name, {
+        const subscription = await topics.subscribe(process.env.NEXT_PUBLIC_CACHE_NAME, name, {
           onItem: (message) => { sendReaction(message.valueString()) },
           onError: (err) => { console.error(err) }
         });
@@ -112,9 +117,33 @@ const PresentPage = () => {
     }
   }, [slidesId]);
 
+  useEffect(() => {
+    async function handleListeningChange() {
+      if (reactionSubscription && !isListening) {
+        reactionSubscription.unsubscribe();
+        setReactionSubscription(null);
+      } else if (!reactionSubscription && isListening) {
+        const subscription = await topicClient.subscribe(process.env.NEXT_PUBLIC_CACHE_NAME, name, {
+          onItem: (message) => { sendReaction(message.valueString()) },
+          onError: (err) => { console.error(err) }
+        });
+
+        setReactionSubscription(subscription);
+      }
+    }
+    if (isLoaded) {
+      handleListeningChange();
+    }
+  }, [isListening]);
+
   const updateCacheClient = (client) => {
     cacheClientRef.current = client;
     setCacheClient(client);
+  };
+
+  const updateTopicClient = (client) => {
+    topicClientRef.current = client;
+    setTopicClient(client);
   };
 
   const sendReaction = async (message) => {
@@ -200,7 +229,23 @@ const PresentPage = () => {
                     <Link href={`${router.asPath}/react`}>
                       <QRCode value={`https://${process.env.NEXT_PUBLIC_DOMAIN_NAME}${router.asPath}/react`} size={256} style={{ height: "auto", maxWidth: "4em" }} />
                     </Link>
-                    <Heading level={4}>Scan the QR code to react live!</Heading>
+                    <Flex direction="column" gap="0em" alignItems="start">
+                      <Heading level={4}>Scan the QR code to react live!</Heading>
+                      <View onClick={() => setIsListening(!isListening)} style={{ cursor: "pointer", fontWeight: 500 }} paddingTop=".2em" paddingLeft="0em">
+                        {isListening ? (
+                          <Flex direction="row" gap=".25em">
+                            <Text color="lightgreen">•</Text>
+                            <Text color="black">Reactions are live!</Text>
+                          </Flex>)
+                          : (
+                            <Flex direction="row" gap=".25em">
+                              <Text color="red">•</Text>
+                              <Text color="black">Reactions are paused</Text>
+                            </Flex>
+                          )}
+                      </View>
+                    </Flex>
+
                   </Flex>
                   <Button variation="link" onClick={() => router.push(`${router.asPath}/results`)}>
                     <Flex direction="row" gap=".5em" alignItems="center">
