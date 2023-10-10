@@ -227,7 +227,7 @@ const PresentPage = () => {
                 <Flex direction="row" justifyContent="space-between">
                   <Flex direction="row" alignItems="center">
                     <Link href={`${router.asPath}/react`}>
-                      <QRCode value={`https://${process.env.NEXT_PUBLIC_DOMAIN_NAME}${router.asPath}/react`} size={256} style={{ height: "auto", maxWidth: "4em" }} />
+                      <QRCode value={`https://${process.env.NEXT_PUBLIC_DOMAIN_NAME}${router.asPath}/react`} size={384} style={{ height: "auto", maxWidth: "5em" }} />
                     </Link>
                     <Flex direction="column" gap="0em" alignItems="start">
                       <Heading level={4}>Scan the QR code to react live!</Heading>

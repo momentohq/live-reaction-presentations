@@ -56,7 +56,7 @@ const RacerPage = () => {
         message: comment
       }
 
-      if(filter.isProfane(comment)){
+      if (filter.isProfane(comment)) {
         toast.error('Your comment cannot contain profanity.', { position: 'top-right', autoClose: 5000, draggable: false, hideProgressBar: true, theme: 'colored' });
         setComment('');
         return;
@@ -74,32 +74,45 @@ const RacerPage = () => {
     <>
       <Head>
         <title>Live Reactions | Momento</title>
+        <style jsx>{`
+          @media (min-width: 768px) {
+            .container {
+              width: 50%;
+              margin: auto;
+            }
+          }
+        `}</style>
       </Head>
       <Flex direction="column" width="100%" alignItems="center" marginTop="1em">
-        <Card variation="elevated" borderRadius="large" padding="1.5em 3em" width="90%">
+        <Card variation="elevated" borderRadius="large" padding="1.5em 3em" width={{base: "90%", large: "50%"}}>
           <Flex direction="column" gap="1em" alignItems="center">
             <Heading level={4} textAlign="center">Press on a reaction below to send it to the presenter!</Heading>
             <Flex direction="row" gap="1em" wrap="wrap" alignItems="center" justifyContent="center">
               <Button variation="link" name="Thumbs Up" onClick={(e) => sendReaction(e.target.name)} >
-                <Flex name="Thumbs Up" direction="column" alignItems="center" justifyContent="center" gap=".3em">
-                  <Image name="Thumbs Up" src="/Thumbs Up.png" width="45%" borderRadius="50%" boxShadow="large" />
+                <Flex name="Thumbs Up" direction="column" alignItems="center" justifyContent="center">
+                  <Image name="Thumbs Up" src="/Thumbs Up.png" width={{base: "45%", large: "25%"}} borderRadius="50%" boxShadow="large" />
                 </Flex>
               </Button>
               <Button variation="link" name="Mindblown" onClick={(e) => sendReaction(e.target.name)} >
-                <Flex name="Mindblown" direction="column" alignItems="center" justifyContent="center" gap=".3em">
-                  <Image name="Mindblown" src="/Mindblown.png" width="45%" borderRadius="50%" boxShadow="large" />
+                <Flex name="Mindblown" direction="column" alignItems="center" justifyContent="center">
+                  <Image name="Mindblown" src="/Mindblown.png" width={{base: "45%", large: "25%"}} borderRadius="50%" boxShadow="large" />
                 </Flex>
               </Button>
               <Button variation="link" name="Love It!" onClick={(e) => sendReaction(e.target.name)} >
-                <Flex name="Love It!" direction="column" alignItems="center" justifyContent="center" gap=".3em">
-                  <Image name="Love It!" src="/Love It!.png" width="45%" borderRadius="50%" boxShadow="large" />
+                <Flex name="Love It!" direction="column" alignItems="center" justifyContent="center">
+                  <Image name="Love It!" src="/Love It!.png" width={{base: "45%", large: "25%"}} borderRadius="50%" boxShadow="large" />
+                </Flex>
+              </Button>
+              <Button variation="link" name="paramount" onClick={(e) => sendReaction(e.target.name)} >
+                <Flex name="paramount" direction="column" alignItems="center" justifyContent="center" gap=".3em">
+                  <Image name="paramount" src="/paramount.png" width={{base: "45%", large: "25%"}} borderRadius="50%" boxShadow="large" />
                 </Flex>
               </Button>
             </Flex>
             <TextField
               isDisabled={!canComment}
               descriptiveText="Have a question or comment? Type it in and hit Enter."
-              placeholder={canComment ? 'This is a great presentation!': 'Please wait 10 seconds...'}
+              placeholder={canComment ? 'This is a great presentation!' : 'Please wait 10 seconds...'}
               value={comment}
               onChange={(e) => setComment(e.target.value)}
               onKeyDown={handleKeyDown}
@@ -107,6 +120,7 @@ const RacerPage = () => {
           </Flex>
         </Card>
       </Flex>
+
     </>
   );
 };
