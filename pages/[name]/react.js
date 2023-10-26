@@ -103,6 +103,11 @@ const RacerPage = () => {
                   <Image name="Love It!" src="/Love It!.png" width={{base: "45%", large: "25%"}} borderRadius="50%" boxShadow="large" />
                 </Flex>
               </Button>
+              <Button variation="link" name="Eric Johnson" onClick={(e) => sendReaction(e.target.name)} >
+                <Flex name="Eric Johnson" direction="column" alignItems="center" justifyContent="center">
+                  <Image name="Eric Johnson" src="/Eric Johnson.png" width={{base: "45%", large: "25%"}} borderRadius="50%" boxShadow="large" />
+                </Flex>
+              </Button>
             </Flex>
             <TextField
               isDisabled={!canComment}
