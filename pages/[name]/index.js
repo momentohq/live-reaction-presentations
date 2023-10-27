@@ -5,6 +5,7 @@ import { TopicClient, CacheClient, CredentialProvider, Configurations } from '@g
 import { Flex, Card, Text, Loader, Image, Heading, Link, View, Button } from '@aws-amplify/ui-react';
 import { getAuthToken } from '../../utils/Auth';
 import { FiArrowRight } from 'react-icons/fi';
+import { buttons } from '../../lib/buttons';
 import Comment from '../../components/Comment';
 import QRCode from 'react-qr-code';
 import styles from '../../styles/animations.module.css';
@@ -150,7 +151,11 @@ const PresentPage = () => {
     try {
       const data = JSON.parse(message);
       if (data.type == 'reaction') {
-        triggerReactionAnimation(data.reaction);
+        const reaction = buttons.find(b => b.name == data.reaction);
+        console.log(reaction)
+        if(!reaction) return;
+
+        triggerReactionAnimation(reaction);
         await cacheClientRef.current.sortedSetIncrementScore(process.env.NEXT_PUBLIC_CACHE_NAME, `${name}-reacters`, data.username);
         await cacheClientRef.current.sortedSetIncrementScore(process.env.NEXT_PUBLIC_CACHE_NAME, name, data.reaction);
       } else if (data.type == 'comment') {
@@ -164,7 +169,7 @@ const PresentPage = () => {
   const triggerReactionAnimation = (reaction) => {
     const newImage = {
       id: Date.now(),
-      reaction,
+      reaction: reaction.imageLocation,
       xPos: Math.random() * (window.innerWidth - 100)  // 100px for the image width
     };
     setImages(prevImages => [...prevImages, newImage]);
@@ -226,8 +231,8 @@ const PresentPage = () => {
               <Card variation="elevated" borderRadius="medium" width="99%" padding="relative.small">
                 <Flex direction="row" justifyContent="space-between">
                   <Flex direction="row" alignItems="center">
-                    <Link href={`${router.asPath}/react`}>
-                      <QRCode value={`https://${process.env.NEXT_PUBLIC_DOMAIN_NAME}${router.asPath}/react`} size={384} style={{ height: "auto", maxWidth: "5em" }} />
+                    <Link href={`${name}/react`}>
+                      <QRCode value={`https://${process.env.NEXT_PUBLIC_DOMAIN_NAME}${name}/react`} size={384} style={{ height: "auto", maxWidth: "5em" }} />
                     </Link>
                     <Flex direction="column" gap="0em" alignItems="start">
                       <Heading level={4}>Scan the QR code to react live!</Heading>
@@ -259,7 +264,7 @@ const PresentPage = () => {
                 <Image
                   key={image.id}
                   className={styles.animatedReaction}
-                  src={`/${image.reaction}.png`}
+                  src={image.reaction}
                   style={{ left: `${image.xPos}px` }}
                   width={"4em"}
                 />

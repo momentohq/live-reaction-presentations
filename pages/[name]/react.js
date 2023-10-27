@@ -7,6 +7,7 @@ import { getAuthToken } from '../../utils/Auth';
 import { getUserDetail } from '../../utils/Device';
 import { toast } from 'react-toastify';
 import { badWordList } from '../../lib/bad-words';
+import { buttons } from '../../lib/buttons';
 import Filter from 'bad-words';
 const filter = new Filter();
 filter.addWords(...badWordList);
@@ -84,30 +85,17 @@ const RacerPage = () => {
         `}</style>
       </Head>
       <Flex direction="column" width="100%" alignItems="center" marginTop="1em">
-        <Card variation="elevated" borderRadius="large" padding="1.5em 3em" width={{base: "90%", large: "50%"}}>
+        <Card variation="elevated" borderRadius="large" padding="1.5em 3em" width={{ base: "90%", large: "50%" }}>
           <Flex direction="column" gap="1em" alignItems="center">
             <Heading level={4} textAlign="center">Press on a reaction below to send it to the presenter!</Heading>
             <Flex direction="row" gap="1em" wrap="wrap" alignItems="center" justifyContent="center">
-              <Button variation="link" name="Thumbs Up" onClick={(e) => sendReaction(e.target.name)} >
-                <Flex name="Thumbs Up" direction="column" alignItems="center" justifyContent="center">
-                  <Image name="Thumbs Up" src="/Thumbs Up.png" width={{base: "45%", large: "25%"}} borderRadius="50%" boxShadow="large" />
-                </Flex>
-              </Button>
-              <Button variation="link" name="Mindblown" onClick={(e) => sendReaction(e.target.name)} >
-                <Flex name="Mindblown" direction="column" alignItems="center" justifyContent="center">
-                  <Image name="Mindblown" src="/Mindblown.png" width={{base: "45%", large: "25%"}} borderRadius="50%" boxShadow="large" />
-                </Flex>
-              </Button>
-              <Button variation="link" name="Love It!" onClick={(e) => sendReaction(e.target.name)} >
-                <Flex name="Love It!" direction="column" alignItems="center" justifyContent="center">
-                  <Image name="Love It!" src="/Love It!.png" width={{base: "45%", large: "25%"}} borderRadius="50%" boxShadow="large" />
-                </Flex>
-              </Button>
-              <Button variation="link" name="Eric Johnson" onClick={(e) => sendReaction(e.target.name)} >
-                <Flex name="Eric Johnson" direction="column" alignItems="center" justifyContent="center">
-                  <Image name="Eric Johnson" src="/Eric Johnson.png" width={{base: "45%", large: "25%"}} borderRadius="50%" boxShadow="large" />
-                </Flex>
-              </Button>
+              {buttons.map(b => (
+                <Button variation="link" name={b.name} onClick={(e) => sendReaction(e.target.name)} >
+                  <Flex name={b.name} direction="column" alignItems="center" justifyContent="center">
+                    <Image name={b.name} src={b.imageLocation} width={{ base: "45%", large: "25%" }} borderRadius="50%" boxShadow="large" />
+                  </Flex>
+                </Button>
+              ))}
             </Flex>
             <TextField
               isDisabled={!canComment}
