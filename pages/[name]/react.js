@@ -12,7 +12,7 @@ import Filter from 'bad-words';
 const filter = new Filter();
 filter.addWords(...badWordList);
 
-const RacerPage = () => {
+const ReactionPage = () => {
   const router = useRouter();
   const { name } = router.query;
   const [topicClient, setTopicClient] = useState(null);
@@ -87,12 +87,12 @@ const RacerPage = () => {
       <Flex direction="column" width="100%" alignItems="center" marginTop="1em">
         <Card variation="elevated" borderRadius="large" padding="1.5em 3em" width={{ base: "90%", large: "50%" }}>
           <Flex direction="column" gap="1em" alignItems="center">
-            <Heading level={4} textAlign="center">Press on a reaction below to send it to the presenter!</Heading>
+            <Heading level={4} textAlign="center">Send your reaction!</Heading>
             <Flex direction="row" gap="1em" wrap="wrap" alignItems="center" justifyContent="center">
               {buttons.map(b => (
                 <Button variation="link" name={b.name} onClick={(e) => sendReaction(e.target.name)} >
-                  <Flex name={b.name} direction="column" alignItems="center" justifyContent="center">
-                    <Image name={b.name} src={b.imageLocation} width={{ base: "45%", large: "25%" }} borderRadius="50%" boxShadow="large" />
+                  <Flex id={b.name} name={b.name} direction="column" alignItems="center" justifyContent="center">
+                    <Image name={b.name} src={b.imageLocation} width={{ base: "45%", large: "20%" }} borderRadius="50%" boxShadow="large" />
                   </Flex>
                 </Button>
               ))}
@@ -113,5 +113,5 @@ const RacerPage = () => {
   );
 };
 
-export default RacerPage;
+export default ReactionPage;
 

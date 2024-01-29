@@ -10,6 +10,11 @@ body {
   background-size: contain;
   background-position: top center;
   background-repeat: repeat;
+  scrollbar-width: none;
+  -ms-overflow-style: none; 
+  &::-webkit-scrollbar {
+    display: none;
+  }
 }
 
 button {

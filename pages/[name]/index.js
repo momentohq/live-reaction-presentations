@@ -218,17 +218,17 @@ const PresentPage = () => {
         ) :
           (
             <Flex direction="column" gap="1em" width="100%" alignItems="center">
-              <View width="99%" margin="auto" height={iframeHeight}>
-                <View ref={iframeContainerRef} position="relative" overflow="hidden" width="100%" paddingTop="58.333%">
+              <View width="99%" margin="auto" height={825} paddingTop=".5em">
+                <View ref={iframeContainerRef} position="relative" width="100%" paddingTop="58.333%">
                   <iframe
                     src={`https://docs.google.com/presentation/d/e/${slidesId}/embed?start=false&loop=false&delayms=60000`}
                     allowFullScreen={true}
                     mozallowfullscreen="true"
                     webkitallowfullscreen="true"
-                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: iframeHeight, border: "none", borderRadius: "10px" }}></iframe>
+                    style={{ position: "absolute", top: 0, left: 0, width: "100%", height: 825, border: "none", borderRadius: "10px" }}></iframe>
                 </View>
               </View>
-              <Card variation="elevated" borderRadius="medium" width="99%" padding="relative.small">
+              <Card variation="elevated" borderRadius="medium" width="99%" padding="relative.small" style={{zIndex: 900}}>
                 <Flex direction="row" justifyContent="space-between">
                   <Flex direction="row" alignItems="center">
                     <Link href={`${name}/react`}>
@@ -265,7 +265,7 @@ const PresentPage = () => {
                   key={image.id}
                   className={styles.animatedReaction}
                   src={image.reaction}
-                  style={{ left: `${image.xPos}px` }}
+                  style={{ left: `${image.xPos}px`, zIndex: 999 }}
                   width={"4em"}
                 />
               ))}
@@ -275,7 +275,7 @@ const PresentPage = () => {
                   className={commentStyles.commentBox}
                   message={comment.message}
                   username={comment.username}
-                  style={{ left: `${comment.xPos}px` }}
+                  style={{ left: `${comment.xPos}px`, zIndex: 999 }}
                 />
               ))}
             </Flex>
